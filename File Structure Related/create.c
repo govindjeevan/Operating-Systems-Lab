@@ -36,14 +36,14 @@ void main()
 
         
         int dup1=dup(fd2);
-        write(dup1,message,strlen(message));
+        
         //read(fd2,string,5); 
      
         lseek(fd2,4,SEEK_CUR);
         read(fd2,string,6);
         write(1,string,5);
 
-     
+        write(dup1,message,strlen(message));
 
 
 
