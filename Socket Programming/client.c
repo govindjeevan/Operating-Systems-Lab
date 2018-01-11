@@ -30,16 +30,27 @@ int main()
                 exit(1);
             }
 
-            else printf("\nConnection to port 9002 succesful. Awaiting server message\n");
+            else printf("\nConnection to server succesful. Begin Chatting.\n\n");
             // receive data from server
             char server_response[256];
             char client_message[256];
-           
-           while(recv(network_socket, &server_response, sizeof(server_response), 0)>0)
-           {           
-                                printf("\n%s\n",server_response);
-                                sleep(1);
-           }
+            int id=fork();
+            if(id){
+
+                    while(recv(network_socket, &server_response, sizeof(server_response),0))
+                                {
+                                    printf("\n\t%s\n\n\t",server_response);
+                                    sleep(1);
+                                }
+            }
+
+            else while(1){
+                    printf("\n\t");
+                    gets(client_message);
+                    send(network_socket, client_message, sizeof(client_message), 0);
+                    bzero(client_message,256);
+                    sleep(1);
+                    }
         
             printf("\nConnection to server terminated\n\n");
             exit(1);

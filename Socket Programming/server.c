@@ -31,17 +31,27 @@ int main()
 
         if(listen(server_socket, 5)!=-1)printf("\nServer listening..\n");
         
-        int client_socket;
+        int client_socket=1;
 
-        client_socket=accept(server_socket, NULL, NULL);
-        if(client_socket!=-1)printf("Connection to client made.\n");
-      
-        while(1){
-                    printf("Enter Message:\t");
+        client_socket=accept(server_socket, NULL, NULL);    
+        if(client_socket!=-1)printf("Client initiating connection..\nConnection Granted\nBegin Chatting.\n\n");
+
+        int id=fork();
+
+        if(id){
+            while(recv(client_socket, &client_response, sizeof(client_response), 0)>0)
+            {           
+                  
+                       printf("\n\t %s\n\n\t",client_response);
+                       sleep(1);
+            }   
+        }
+        else while(1){
+                    printf("\n\t ");
                     gets(server_message);
                     send(client_socket, server_message, sizeof(server_message), 0);
                     bzero(server_message,256);
                     sleep(1);
-                }
+                    }  
 
     }
