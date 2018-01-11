@@ -1,0 +1,22 @@
+//alarm,signal
+#include <stdio.h>
+#include <signal.h>
+
+volatile int breakflag = 3;
+
+void handle(int sig) {
+    printf("Hello\n");
+    --breakflag;
+    alarm(1);
+}
+
+int main() {
+    //alarm() arranges for a SIGALRM signal to be delivered to the calling
+    // process in seconds seconds.
+    signal(SIGALRM, handle);
+    alarm(5);
+    while(breakflag) {// sleep(1); 
+    }
+    printf("done\n");
+    return 0;
+}
