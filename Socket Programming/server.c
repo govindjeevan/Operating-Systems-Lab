@@ -18,12 +18,15 @@ int main()
         char client_response[256];
         server_socket=socket(AF_INET, SOCK_STREAM, 0);
 
-        struct sockaddr_in server_address;
+        struct sockaddr_in server_address, client_address;
        
+     
 
         server_address.sin_family = AF_INET;
         server_address.sin_port=htons(9002);
         server_address.sin_addr.s_addr= INADDR_ANY;
+           
+
 
         //binding the socket to the specified IP and port
 
@@ -32,9 +35,12 @@ int main()
         if(listen(server_socket, 5)!=-1)printf("\nServer listening..\n");
         
         int client_socket=1;
+        int l=sizeof(client_address);
 
-        client_socket=accept(server_socket, NULL, NULL);    
-        if(client_socket!=-1)printf("Client initiating connection..\nConnection Granted\nBegin Chatting.\n\n");
+        client_socket=accept(server_socket, (struct sockaddr *) &client_address ,&l); 
+           
+        if(client_socket!=-1)
+            printf("Server is connected with IP address %s and port %d\n",inet_ntoa(client_address.sin_addr),ntohs(client_address.sin_port));
 
         int id=fork();
 

@@ -19,6 +19,7 @@ int main()
         server_socket=socket(AF_INET, SOCK_DGRAM, 0);
 
         struct sockaddr_in server_address;
+        struct sockaddr_in from;
        
 
         server_address.sin_family = AF_INET;
@@ -29,16 +30,18 @@ int main()
 
         bind(server_socket, (struct sockaddr *) &server_address, sizeof(server_address));
 
+        int fromlen = sizeof(struct sockaddr_in);
+        int k=0;
+     
+       recvfrom(server_socket,client_response,sizeof(client_response),0,(struct sockaddr *)&from,&fromlen);
+    
+                printf("\n\nServer is connected with IP address %s and port %d\n",inet_ntoa(from.sin_addr),ntohs(from.sin_port));
+                printf("\n\t%s\n\n\t",client_response);
+         
+  
+                gets(server_message);
+                sendto(server_socket,server_message,sizeof(server_message),0,(struct sockaddr *)&from,sizeof(server_address));
+                bzero(server_message,256);
+                sleep(1);
 
-        struct sockaddr_in cli;
-        int clen=sizeof(cli);
-
-            while(recvfrom(server_socket,&client_response,sizeof(client_response),0,(struct sockaddr *)&cli,&clen))
-
-            {
-                 
-                       printf("\n\t %s\n\n\t",client_response);
-                       sleep(1);
-            }   
-       
     }
