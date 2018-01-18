@@ -15,17 +15,17 @@ int main()
             //create socket
             int network_socket;
             network_socket=socket(AF_INET, SOCK_STREAM, 0);
-
-            struct hostent *host;
-            host = gethostbyname("127.0.0.1");  
             
+        struct hostent *host;
+        host = gethostbyname("127.0.0.1");  
+
             // specify address for the socket
 
             struct sockaddr_in server_address;
             server_address.sin_family=AF_INET;
             server_address.sin_port=htons(9002);
-
             server_address.sin_addr = *((struct in_addr *)host->h_addr);
+            bzero(&(server_address.sin_zero),8);
 
             int connection_status=connect(network_socket, (struct sockaddr *) &server_address, sizeof(server_address));
             if(connection_status==-1){
