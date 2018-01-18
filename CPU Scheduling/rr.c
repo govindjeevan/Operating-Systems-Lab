@@ -27,6 +27,7 @@ void waiting_time(int tq,int n, int bt[])
                             for(j=0;j<n;j++)
                                 if(j!=i && bt[j]) wt[j]+=del;       
                         }
+            
             x=0;
             for(i=0;i<n;i++)
             x+=bt[i];
