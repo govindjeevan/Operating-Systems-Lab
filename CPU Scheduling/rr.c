@@ -8,11 +8,11 @@ void waiting_time(int tq,int n, int bt[])
         float wt_avg=0;
         float tt_avg=0;
         int del;
-        int completed[n];
+
         int x=1;
         for(i=0;i<n;i++)
             wt[i]=0;
-        while(bt[0] || bt[1] || bt[2])
+        while(x)
         {
             for(i=0; i<n; i++)
                         {   
@@ -27,6 +27,9 @@ void waiting_time(int tq,int n, int bt[])
                             for(j=0;j<n;j++)
                                 if(j!=i && bt[j]) wt[j]+=del;       
                         }
+            x=0;
+            for(i=0;i<n;i++)
+            x+=bt[i];
         }
     
 
