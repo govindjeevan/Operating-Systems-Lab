@@ -1,10 +1,9 @@
-//Shortest Job Non Prememptive
-
 #include <stdio.h>
 
 struct process{
     int bt;
     int at;
+    int pt;
 };
 
 void fcfs(struct process *P, int n){
@@ -33,23 +32,27 @@ void fcfs(struct process *P, int n){
                             
                         }
                 }
-            if(cur==-1)
-                { 
-                    for(i=0;i<n;i++)
+            
+            for(i=0;i<n;i++)
                         {   
                             if(flag[i])
                                 {
                                     if(cur==-1)
                                         cur=i;
-                                    if(P[i].bt< P[cur].bt)
+                                    if(P[i].pt > P[cur].pt)
                                         cur=i;
                                 }
                         }
-                }
+                
         printf("\tFlags:");
         for(i=0;i<n;i++)
             {
                printf(" %d",flag[i]);
+            }
+        printf("\tPriorities:");
+        for(i=0;i<n;i++)
+            {
+               printf(" %d",P[i].pt);
             }
         putchar('\n');
         printf("\tCurrent: %d\n",cur+1);
@@ -57,10 +60,13 @@ void fcfs(struct process *P, int n){
         for(i=0;i<n;i++)
             {
                 if(flag[i] && i!=cur)
-                    wt[i]++;
+                    {
+                        wt[i]++;
+                        P[i].pt++;
+                    }
             }
         P[cur].bt--;
-
+        
         if(P[cur].bt==0) 
             {
                 x--;
@@ -68,12 +74,18 @@ void fcfs(struct process *P, int n){
                 cur=-1;
             }
         time++;
-  
+        printf("\n\tREMAINING BURST TIMES\n");
+        for(i=0;i<n;i++)
+            {
+               printf("\tProcess %d: %d\n",i+1,P[i].bt);
+            }
         printf("\n\tWAITING TIMES\n");
         for(i=0;i<n;i++)
             {
                printf("\tProcess %d: %d\n",i+1,wt[i]);
             }
+    
+        
         if(!x) {
             printf("\n****Process Ended*****\n\n\n");
             break;
@@ -105,6 +117,8 @@ void main()
                 scanf("%d",&P[i-1].at);
                 printf("\n\tEnter the burst time of process %d\n",i);
                 scanf("%d",&P[i-1].bt);
+                printf("\n\tEnter the priority of process %d\n",i);
+                scanf("%d",&P[i-1].pt);
             }
 
         fcfs(P,n);

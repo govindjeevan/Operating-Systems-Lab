@@ -1,3 +1,4 @@
+//Shortest Job Prememptive
 #include <stdio.h>
 
 struct process{

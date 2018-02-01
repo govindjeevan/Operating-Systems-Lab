@@ -1,5 +1,3 @@
-//Shortest Job Non Prememptive
-
 #include <stdio.h>
 
 struct process{
@@ -33,19 +31,18 @@ void fcfs(struct process *P, int n){
                             
                         }
                 }
-            if(cur==-1)
-                { 
-                    for(i=0;i<n;i++)
+            
+            for(i=0;i<n;i++)
                         {   
                             if(flag[i])
                                 {
                                     if(cur==-1)
                                         cur=i;
-                                    if(P[i].bt< P[cur].bt)
+                                    if(P[i].bt < P[cur].bt)
                                         cur=i;
                                 }
                         }
-                }
+                
         printf("\tFlags:");
         for(i=0;i<n;i++)
             {
@@ -60,7 +57,7 @@ void fcfs(struct process *P, int n){
                     wt[i]++;
             }
         P[cur].bt--;
-
+        
         if(P[cur].bt==0) 
             {
                 x--;
@@ -68,12 +65,18 @@ void fcfs(struct process *P, int n){
                 cur=-1;
             }
         time++;
-  
+        printf("\n\tREMAINING BURST TIMES\n");
+        for(i=0;i<n;i++)
+            {
+               printf("\tProcess %d: %d\n",i+1,P[i].bt);
+            }
         printf("\n\tWAITING TIMES\n");
         for(i=0;i<n;i++)
             {
                printf("\tProcess %d: %d\n",i+1,wt[i]);
             }
+        
+        
         if(!x) {
             printf("\n****Process Ended*****\n\n\n");
             break;
