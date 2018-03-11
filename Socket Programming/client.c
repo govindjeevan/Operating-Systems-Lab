@@ -45,6 +45,7 @@ int main()
                                     printf("\n\t%s\n\n\t",server_response);
                                     sleep(1);
                                 }
+            
             }
 
             else while(1){

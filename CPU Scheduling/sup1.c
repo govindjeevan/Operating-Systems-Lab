@@ -112,27 +112,30 @@ void schedule(struct process p[], int n, int t)
 {
     int i=0;
     int cur;
-    int time=0;
+    int clock=0;
     int del;
     int flag[n];
     for(i=0;i<n;i++)
             {
                 p[i].wt=0;
             }
-
-    for(i=0;i<n;i++)
-                {
-                    if(p[i].at==0)
-                        {
-                            flag[i]=1;
-                            p_enqueue(i,p[i].p);
-                        }
-                }
+    
+    while(isEmpty())
+    {
+        for(i=0;i<n;i++)
+                    {
+                        if(p[i].at==clock)
+                            {
+                                flag[i]=1;
+                                p_enqueue(i,p[i].p);
+                            }
+                    }
+        clock++;
+    }
+     printf("\n\n\t\t\tCLOCK: %d\n\n", clock);
      display();
     do
         {   
-           
-           
             del=1;
             cur=dequeue();
             if(cur==-1) break;
@@ -155,19 +158,20 @@ void schedule(struct process p[], int n, int t)
                     printf("\t\tProcess %d: (%d,%d)\n", i+1,p[i].bt,p[i].wt);
                 }
 
-            time+=del;
+            clock+=del;
             if(p[cur].bt)enqueue(cur,p[cur].p);
-            else flag[cur]=0;
+            if(p[cur].bt==0) flag[cur]=0;
            
 
             for(i=0;i<n;i++)
                 {
-                    if(p[i].at<=time && !flag[i] && p[i].bt)
+                    if(p[i].at<=clock && !flag[i] && p[i].bt)
                         {
                             p_enqueue(i,p[i].p);
                             flag[i]=1;
                         }
                 }
+                 printf("\n\n\t\t\tCLOCK: %d\n\n", clock);
         if(!isEmpty())display();
         getchar();
             
@@ -179,6 +183,7 @@ void main()
         int i;
         int n=3;
         struct process p[n];
+        
         p[0].bt=10;
         p[1].bt=7;
         p[2].bt=11;
@@ -189,7 +194,7 @@ void main()
 
         p[0].p=4;
         p[1].p=2;
-        p[2].p=10;
+        p[2].p=8;
         
      
         schedule(p,n,3);

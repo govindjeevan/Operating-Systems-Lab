@@ -1,0 +1,64 @@
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c: In function ‘reader’:
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:14:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\n\t\tReader %s is waiting on Mutex Lock. %d\n",p,mutex);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:14:16: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘sem_t {aka union <anonymous>}’ [-Wformat=]
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:16:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\n\t\tReader %s aquires Mutex Lock %d.\n",p,mutex);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:16:16: warning: format ‘%d’ expects argument of type ‘int’, but argument 3 has type ‘sem_t {aka union <anonymous>}’ [-Wformat=]
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:21:24: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+                 printf("\n\t\tReader %s is waiting on Write Lock.\n",p);
+                        ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:23:24: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+                 printf("\n\t\tReader %s locks out writers\n",p);
+                        ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:27:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\n\t\tReader %s releases Mutex lock\n", p);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:28:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\n\t\tReader %s is reading\n", p);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:29:9: warning: implicit declaration of function ‘sleep’ [-Wimplicit-function-declaration]
+         sleep(3);
+         ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:30:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\n\t\tReader %s is waiting to exit...\n",p);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:37:24: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+                 printf("\n\t\tWrite Lock is released by reader %s\n",p);
+                        ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:41:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\n\t\tReader %s unlocks and exits...\n",p);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c: In function ‘writer’:
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:46:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\n\t\t\t\t\t\tWriter %s is waiting to write\n",p);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:48:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\nWriter %s Active\n",p);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:50:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\n\t\t\t\t\t\tWriter %s Finishes writing\n",p);
+                ^
+/home/govind/Desktop/Operating-Systems-Lab/Process Synchronization/rw.c:52:16: warning: format ‘%s’ expects argument of type ‘char *’, but argument 2 has type ‘void *’ [-Wformat=]
+         printf("\nWriter %s Inactive\n", p);
+                ^
+/tmp/ccxCRwzS.o: In function `reader':
+rw.c:(.text+0x44): undefined reference to `sem_wait'
+rw.c:(.text+0xb0): undefined reference to `sem_wait'
+rw.c:(.text+0xe7): undefined reference to `sem_post'
+rw.c:(.text+0x142): undefined reference to `sem_wait'
+rw.c:(.text+0x165): undefined reference to `sem_post'
+rw.c:(.text+0x19c): undefined reference to `sem_post'
+/tmp/ccxCRwzS.o: In function `writer':
+rw.c:(.text+0x1e1): undefined reference to `sem_wait'
+rw.c:(.text+0x226): undefined reference to `sem_post'
+/tmp/ccxCRwzS.o: In function `main':
+rw.c:(.text+0x257): undefined reference to `sem_init'
+rw.c:(.text+0x26b): undefined reference to `sem_init'
+rw.c:(.text+0x284): undefined reference to `pthread_create'
+rw.c:(.text+0x29d): undefined reference to `pthread_create'
+rw.c:(.text+0x2b6): undefined reference to `pthread_create'
+rw.c:(.text+0x2cf): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status

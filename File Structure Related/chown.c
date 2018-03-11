@@ -16,20 +16,12 @@ void main(){
 
     char path[]="chownfile.txt";
     
-    int fd=open(path, O_RDONLY | O_CREAT, S_IRUSR);
+    int fd=open(path, O_WRONLY | O_CREAT, S_IRUSR);
     if(fd<0){
-        printf("\nError in opening file\n\n");exit(1);
-    }
+                printf("\nError in opening file\n\n");exit(1);
+            }
     else printf("\nFile opened with fd= %d\n\n", fd);
-
-    printf("Current User ID = %d\t\t", getuid());
-    printf("User Name = %s\n\n", getpwuid(getuid())->pw_name);
-    printf("Alternate User ID = %d\t\t", getuid()+1);
-    printf("User Name = %s\n", getpwuid(getuid()+1)->pw_name);
-
-    if(chown(path,getuid()+1,getuid()+1)==0)printf("Owner changed to %s\n",getpwuid(getuid()+1)->pw_name);
-    else printf("Change of owner unsuccesful ( Try using sudo ./a.out )\n");
-
-
+    char buffer[]="helo";
+    write(fd, "hello\n",strlen("Hello"));
 
     }
