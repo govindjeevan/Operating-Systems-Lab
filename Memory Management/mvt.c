@@ -25,7 +25,7 @@ void display(struct process p[], int n )
             }
     }
 
-void fill(int *a, int start, int end)
+void fill(int *a, int start, int end, int p)
     {
         int i=0;
         for(i=start; i<end; i++)
@@ -42,14 +42,15 @@ void empty(int *a, int start, int end)
 void mem(int *a, int s)
     {
         int i=0;
-        puchar('\t');
+        printf("\n\tMEMORY SPACE:\t");
         for(i=0; i<s; i++)
             printf("%d",a[i]);
+        putchar('\n');
     }
 void allocation( struct process p[], int n, int s, int memory[])
     {
         int i,j,end;
-        int max;
+        int max=0;
         int x=0;
         int flag;
         int count=0;
@@ -60,52 +61,55 @@ void allocation( struct process p[], int n, int s, int memory[])
                         printf("\n\tProcess %d Larger Than Memory.\n",i);
                         continue;
                     }
-
-
-
                 
+
+                // FINDING FREE SPACES IN MEMORY
                 for(j=0;j<s;j++)
                     {
-                        max=0;
                         count=0;
                         x=0;
                         if(memory[j]==1)
                             continue;
-
                         x=j;
-                        
-                        while(memory[j]!=1 && j<s)
+                        while(memory[j]==0 && j<s)
                             {
                                 j++;
                                 count++;
                             }
-                        if( count > max)
-                            max=count;
-                        if( count >= p[i].size)
+
+
+                        if( count > max)    // MAX CONTINOUS FREE SPACE FOUND
+                            max=count;  
+
+                        if( count >= p[i].size) // IF FREE SPACE CAN HOLD PROCESS
                         {
                             p[i].start=x;
                             p[i].end=x+p[i].size;
-                            fill(memory,p[i].start,p[i].end);
-                            printf("\n\n\t Process %d: %d -> %d\n\n",i,p[i].start,p[i].end);
+                            fill(memory,p[i].start,p[i].end,i);
+                            printf("\n\n\t Process %d ( %d ) : \n\t%d -> %d\n\n",i,p[i].size,p[i].start,p[i].end);
+                            max=0;  // Free Space reduced. Reiniatialize MAX free space to 0
                             mem(memory,s);
                             break;
                         }       
                     }
-                
+
+                // IF PROCESS COULD NOT BE ALLOCATED                
                 if (p[i].start==-1)
-                    {
+                    {   
+                        display(p, n);        
                         printf("\n\n\tLargest Contiguous Free Space: %d\n",max);                        
-                        printf("\n\tProcess %d: NOT ALLOCATED. Swap? [1/0]\n",i);
+                        printf("\n\tProcess %d (%d) : NOT ALLOCATED. Swap? [1/0]\n",i, p[i].size);
                         scanf("%d", &x);
                         if(x)
                             {   
                                 display(p, n);        
                                 printf("\nProcess to swap:\n");
                                 scanf("%d",&x);
-                                empty(memory,p[x].start,p[x].end);
-                                p[x].start=-1;
+                                empty(memory,p[x].start,p[x].end);  // EMPTY THE MEMORY SEGMENT OF SWAPPED PROCESS
+                                p[x].start=-1;  // CLEAR THE ALLOCATION IN PCB of SWAPPED PROCESS
                                 p[x].end=-1;
-                                i=i-1;
+                                i=i-1;          // TO MAKE THE LOOP RUN THE UNALLOCATED PROCESS AGAIN AFTER SWAPPING OUT ANOTHER PROCESS
+                                max=0; // FREE SPACE INCREASED
                             }
                     }
 
@@ -113,9 +117,8 @@ void allocation( struct process p[], int n, int s, int memory[])
                 
             }
        
-
-
         display(p, n);
+        mem(memory,s);
     }
 int main()
     {
