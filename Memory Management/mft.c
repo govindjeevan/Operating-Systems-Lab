@@ -1,3 +1,5 @@
+//  Multiprogramming with fixed tasks (MFT)
+
 #include <stdio.h>
 
 struct partition{
