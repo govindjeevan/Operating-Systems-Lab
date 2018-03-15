@@ -7,7 +7,7 @@ struct process{
     int start;
     int end;
 };
-
+int freespace[2][20];
 int size (int a, int b)
     {
         return a-b;
@@ -54,32 +54,75 @@ void mem(int *a, int s)
         putchar('\n');
     }
 
+/*
+int freespace(int head,int memory[],int s)
+    {
+        int j=head;
+        int count=0;
+        while(memory[j]==0 && j<s)
+            {
+                j++;
+                count++;
+            }
+        return count;
+    }
+*/
+int select(int size)
+    {
+        int i=0;
+        int best=-1;
+        for(i=0;i<20;i++)
+            {
+                if(freespace[1][i]==-1)
+                    continue;
+                
+                if(freespace[2][i] < size)
+                    continue;
+                
+                if(best==-1)
+                    {
+                        best=i;
+                        continue;
+                    }
+                
+                if(freespace[2][best] > freespace[2][i])
+                    best=i;                    
+            }
+        if(best==-1) return -1;
+        else return freespace[1][best];
+    }
 int allocate(int n, struct process *p, int memory[], int s)
     {
-        int j,count,x;
-                for(j=0;j<s;j++)
+        int i,j,count=0,x, head=-1;
+        for(i=0;i<20;i++)
+            {
+            freespace[1][i]=-1;
+            freespace[2][i]=0;
+            }
+
+        for(j=0;j<s;j++)
                     {
-                        count=0;
+                        
                         x=0;
                         if(memory[j]==1)
                             continue;
-                        x=j;
-                        while(memory[j]==0 && j<s)
+                        freespace[1][count]=j;
+                        while(memory[j]==0)
                             {
+                                freespace[2][count]++;
                                 j++;
-                                count++;
+                                if(j>=s) break;
                             }
-
-                        if( count >= p[n].size) // IF FREE SPACE CAN HOLD PROCESS
-                        {
-                            p[n].start=x;
-                            p[n].end=x+p[n].size;
+                        count++;
+                    }
+                    head=select(p[n].size);
+                    if(head==-1) return 0;
+                            p[n].start=head;
+                            p[n].end=head+p[n].size;
                             fill(memory,p[n].start,p[n].end,n);
                             printf("\n\n\t Process %d ( %d ) : \n\t%d -> %d\n\n",n,p[n].size,p[n].start,p[n].end);
                             mem(memory,s);
-                            break;
-                        }           
-                    }
+  
         if(p[n].start!=-1)
             return 1;
         else return 0;
@@ -101,6 +144,7 @@ int main()
         struct process p[20];
         for(i=0;i<20;i++)
             {
+                
                 p[i].size=-1;
                 p[i].start=-1;
                 p[i].end=-1;
