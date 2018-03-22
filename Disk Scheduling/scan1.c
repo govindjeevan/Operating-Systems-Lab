@@ -14,7 +14,14 @@ int next_right( int c, int cyllinder[], int n)
         int next;
         if( c == n-1)
             {
-                next=0;
+                for(i=c-1;i>-1;i=i-1)
+                    {
+
+                        if(cyllinder[i]==-1)
+                            continue;
+                        next=i;
+
+                    }
                 return next;
             }
         if(cyllinder[c+1]==-1)
@@ -63,29 +70,13 @@ void sort(int *cyllinder, int n)
 int main()
     {
         int n,i;
-        int size;
-        printf("\n\tSIZE OF CYLLINDER: ");
-        scanf("%d",&size);
-        printf("\n\tENTER NUMBER OF CYLLINDERS REQUESTS: ");
+        printf("\n\tENTER NUMBER OF CYLLINDERS: ");
         scanf("%d", &n);
-        n=n+2;
         int cyllinder[n];
         int head;
         printf("\n\tENTER CYLLINDER NUMBERS: ");
         for(i=0;i<n;i++)
             {
-                if(i==0)
-                    {
-                        cyllinder[i]=0;
-                        continue;
-                    }
-                if(i==n-1)
-                    {
-                        cyllinder[i]=size;
-                        continue;
-                    }
-
-                    
                 scanf("%d", &cyllinder[i]);
             }
         
