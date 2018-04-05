@@ -1,3 +1,4 @@
+
 #include<math.h>
 #include<stdio.h>
 
@@ -8,6 +9,7 @@ int abs(int x)
         else return -x;
     }
 
+    
     
 int main()
 {
@@ -77,8 +79,7 @@ int main()
                 a[x]=lower[i];    
                 x++;            
             }
-            a[x]=0; //after processing all requests it must touch lower bound
-            x++;
+            
             for(i=0;i<k;i++)
             {        
                 a[x]=upper[i];
@@ -91,8 +92,7 @@ int main()
                 a[x]=upper[i];    
                 x++;            
             }
-            a[x]=ub; //after processing all requests it must touch upper bound
-            x++;
+            
             for(i=0;i<j;i++)
             {        
                 a[x]=lower[i];
