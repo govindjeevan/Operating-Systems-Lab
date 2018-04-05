@@ -1,0 +1,89 @@
+#include<stdio.h> 
+
+#include<stdio.h>
+
+int i,j,f[10],p[100],pf=0,frames,flag=0,repeat=0,page;
+
+int main()
+
+{
+
+    printf("enter the number of frames:\n");
+
+    scanf("%d", &frames);
+
+    printf("enter the number of pages:\n");
+
+    scanf("%d",&page);
+
+    printf("Enter the page details\n");
+
+    for(i=0;i<page;i++)
+
+    {
+
+        scanf("%d",&p[i]); //sequence in which the pages are requested
+
+    }
+
+    for(j=0;j<frames;j++)
+
+    {
+
+        f[j]=-1; // -1 means initially all frames are empty
+
+    }
+
+    for(i=0;i<page;i++)
+
+    {
+
+        repeat=0;  
+
+        for(j=0;j<frames;j++) 
+
+        {
+
+            if(f[j]==p[i]) //checks whether the page is already in memory at jth position
+
+            {
+
+                repeat=1; //if yes then no need to do anything and hence break from the loop
+
+                break;
+
+            }
+
+            else
+
+            continue; //if not at jth position then continue and check at (j+1) position
+
+        }
+
+        if(repeat!=1) //if page is not already in memory
+
+        {
+
+            f[flag]=p[i]; //bring it in
+
+            flag++; //increment flag to indicate the next position where the next required page will be replaced
+
+            if(flag==frames) //if it is the last frame
+
+            {
+
+                flag=0; // change the index to 0
+
+            }
+
+            pf++; //count the page fault
+
+        }
+
+    }
+
+    printf("Number of page fault = %d\n",pf);
+
+}
+
+

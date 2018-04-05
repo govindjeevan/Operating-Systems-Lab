@@ -70,11 +70,11 @@ void sort(int *cyllinder, int n)
 int main()
     {
         int n,i;
-        printf("\n\tENTER NUMBER OF CYLLINDERS: ");
+        printf("Enter the size of queue request\n");
         scanf("%d", &n);
         int cyllinder[n];
         int head;
-        printf("\n\tENTER CYLLINDER NUMBERS: ");
+        printf("Enter the queue of disk positions to be read\n");
         for(i=0;i<n;i++)
             {
                 scanf("%d", &cyllinder[i]);

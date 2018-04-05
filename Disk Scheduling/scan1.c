@@ -77,7 +77,7 @@ int main()
                 a[x]=lower[i];    
                 x++;            
             }
-            a[x]=0; //after processing all requests it must touch lower bound
+            a[x]=0; 
             x++;
             for(i=0;i<k;i++)
             {        
@@ -91,7 +91,7 @@ int main()
                 a[x]=upper[i];    
                 x++;            
             }
-            a[x]=ub; //after processing all requests it must touch upper bound
+            a[x]=ub; 
             x++;
             for(i=0;i<j;i++)
             {        
@@ -100,7 +100,6 @@ int main()
             }
         break;
     }
-    
     mov=mov+abs(cp-a[0]);
     printf("%d -> %d",cp,a[0]);
     for(i=1;i<x;i++)
